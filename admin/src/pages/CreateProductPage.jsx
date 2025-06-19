@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ProductForm from '../components/ProductForm'
 
 const CreateProductPage = () => {
 
@@ -8,9 +9,7 @@ const CreateProductPage = () => {
   return (
     <main>
       
-      CreateProductPage
-
-      <br/>
+ 
       <Link to='/admin'>
         <button>Home</button>
       </Link>
@@ -18,6 +17,13 @@ const CreateProductPage = () => {
       <Link to='/products'>
         <button>Products</button>
       </Link>
+
+
+        <h1>Created Product Page</h1>
+
+        <ProductForm />
+
+
     </main>
   )
 }

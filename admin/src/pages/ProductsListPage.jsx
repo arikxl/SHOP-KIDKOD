@@ -16,27 +16,30 @@ const ProductsListPage = ({ setUser, productsFromDB }) => {
       
       <h1>Products: {productsFromDB.length}</h1>
 
-      {/* <Link to='/create-product'>
-        <button className='green'>New Product</button>      
-      </Link> */}
+      <Link to='/create-product'>
+        <button className='green'>Add Product</button>      
+      </Link>
 
+      <section className='productList'>
+        { 
+          productsFromDB.map((product) => (
+            <figure key={product.id} className='productPreview'>
+              <h3>{product.title }</h3>
+              <img alt={product.title} src={product.img1} />
+              <p>${product.price}</p>
+            </figure>
+            ))
+        }
+      </section>
+      
 
-      {/* <section>
-        {products.map((product) => (
+ 
 
-          <Link key={product.id} to={`/product/${product.id}`}>
-            <h2 >{product.title}: ${product.price}</h2>
-          </Link>
-
-
-        ))}
-      </section> */}
-
-      {/* <Link to="/admin">
+      <Link to="/admin">
         <button>Home</button>
       </Link>
-      &nbsp;
-      <LogoutBtn setUser={setUser} /> */}
+
+      {/* <LogoutBtn setUser={setUser} /> */}
 
     </main>
   )
