@@ -4,7 +4,8 @@ import { Link, useParams } from 'react-router-dom'
 const ProductItemPage = ({ products }) => {
 
 
-  const id = +useParams('id').id;
+  const id = +useParams().id;
+  console.log(id)
 
   const [product, setProduct] = useState({});
 
@@ -14,20 +15,29 @@ const ProductItemPage = ({ products }) => {
     setProduct(p)
   }, [])
 
-
   return (
     <main>
-      Product: {id}
-      <h3>{product.title}</h3>
-      <h3>${product.price}</h3>
+      
+      <h1>Product {id}</h1>
 
-      <Link to='/products'>
+      {
+        product
+          ? (product.title)
+          : ('Product Not Found')
+      }
+
+
+      {/* Product: {id}
+      <h3>{product.title}</h3>
+      <h3>${product.price}</h3> */}
+
+      {/* <Link to='/products'>
         <button>Products</button>
-      </Link>
+      </Link> */}
       &nbsp;
-      <Link to='/admin'>
+      {/* <Link to='/admin'>
         <button>Home</button>
-      </Link>
+      </Link> */}
     </main>
   )
 }

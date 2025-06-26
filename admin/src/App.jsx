@@ -15,23 +15,23 @@ import CreateProductPage from './pages/CreateProductPage'
 const cookies = new Cookies();
 
 
-const products = [
-  {
-    id: 1111,
-    title: 'SHIRT',
-    price: 99
-  },
-  {
-    id: 2222,
-    title: 'JEANS',
-    price: 22
-  },
-  {
-    id: 3333,
-    title: 'SHOES',
-    price: 50
-  }
-]
+// const products = [
+//   {
+//     id: 1111,
+//     title: 'SHIRT',
+//     price: 99
+//   },
+//   {
+//     id: 2222,
+//     title: 'JEANS',
+//     price: 22
+//   },
+//   {
+//     id: 3333,
+//     title: 'SHOES',
+//     price: 50
+//   }
+// ]
 
 
 function App() {
@@ -62,7 +62,8 @@ function App() {
 
         <Route path="/products" element={<ProductsListPage setUser={setUser} productsFromDB={productsFromDB} />} />
        
-        <Route path="/product/:id" element={<ProductItemPage products={products} />} />
+        <Route path="/product/:id" element={<ProductItemPage products={productsFromDB} />} />
+
         <Route path="/create-product" element={<CreateProductPage />} />
 
         <Route path="*" element={<p>Please log in to access the app.</p>} />
