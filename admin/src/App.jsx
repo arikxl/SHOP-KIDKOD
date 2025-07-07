@@ -37,7 +37,7 @@ const cookies = new Cookies();
 function App() {
 
   const [user, setUser] = useState(cookies.get('kidkod-user-new') || null);
-  console.log(user)
+  // console.log(user)
 
   const [productsFromDB, setProductsFromDB] = useState([]);
 
@@ -48,9 +48,7 @@ function App() {
       .then(res => setProductsFromDB(res.data))
       .catch(err => console.error(err))
 
-
-
-  }, [])
+  }, [productsFromDB])
 
 
   return (

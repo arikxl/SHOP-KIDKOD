@@ -11,7 +11,7 @@ const db = mysql.createPool({
     database: 'fullstack-shop',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit:0
+    queueLimit: 0
 })
 
 
@@ -23,14 +23,40 @@ router.get('/', async (req, res) => {
         const [products] = await db.query("SELECT * FROM products")
         res.json(products)
         console.log(products)
-    } catch(error) { 
+    } catch (error) {
         console.log("Database ERROR: ", error)
-        res.status(500).json({error: 'Failed to fetch products'})
+        res.status(500).json({ error: 'Failed to fetch products' })
     }
-} )
+})
 
 
 
+// CREATE NEW PRODUCT
+
+router.post('/create', async (req, res) => {
+
+    try {
+
+        const sql = `INSERT INTO products
+        ( id, title, brand, category, type, img1, img2, price, stock, description, isOnSale)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+
+        const values = [
+            req.body.id, req.body.title, req.body.brand, req.body.category, req.body.type, req.body.img1,
+            req.body.img2, req.body.price, req.body.stock, req.body.description, req.body.isOnSale
+        ];
+
+        const [product] = await db.execute(sql, values);
+        res.status(201).json({ message: 'Added New Product!', product });
+        
+        
+
+    } catch (error) {
+        console.log(error, "Error Insert new product!");
+        res.status(500).json({ error: 'Error Insert new product! - SERVER' })
+    }
+
+})
 
 
 
