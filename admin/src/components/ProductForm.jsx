@@ -3,22 +3,22 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-const ProductForm = () => {
+const ProductForm = ({ product }) => {
 
     const navigate = useNavigate();
 
 
-    const [id, setId] = useState('1000');
-    const [title, setTitle] = useState('');
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
-    const [type, setType] = useState('');
-    const [img1, setImg1] = useState('');
-    const [img2, setImg2] = useState('');
-    const [price, setPrice] = useState(0);
-    const [stock, setStock] = useState(1);
-    const [description, setDescription] = useState('');
-    const [isOnSale, setIsOnSale] = useState(false);
+    const [id, setId] = useState(product.id || '1000');
+    const [title, setTitle] = useState(product.title);
+    const [brand, setBrand] = useState(product.brand);
+    const [category, setCategory] = useState(product.category);
+    const [type, setType] = useState(product.type);
+    const [img1, setImg1] = useState(product.img1);
+    const [img2, setImg2] = useState(product.img2);
+    const [price, setPrice] = useState(product.price || 0);
+    const [stock, setStock] = useState(product.stock || 1);
+    const [description, setDescription] = useState(product.description);
+    const [isOnSale, setIsOnSale] = useState(product.isOnSale || false);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -49,13 +49,14 @@ const ProductForm = () => {
 
 
 
+
     return (
 
         <section className='product-form'>
 
             <div className='product-input'>
                 <label>ID:</label>
-                <input type='text' value={id}
+                <input type='text' value={id} disabled={product.id}
                     onChange={handleInputChange(setId)}
                 />
             </div>
@@ -137,12 +138,25 @@ const ProductForm = () => {
 
             <div className='product-buttons'>
 
-                <button className={isLoading ? 'yellow' : 'green'}
-                    onClick={saveProduct} disabled={isLoading }
-                >
-                    {isLoading ? 'LOADING...' : 'Save'}
+                {
+                    !product.id
+                        ? (
+                            <button className={isLoading ? 'yellow' : 'green'}
+                                onClick={saveProduct} disabled={isLoading}
+                            >
+                                {isLoading ? 'LOADING...' : 'Save'}
 
-                </button>
+                            </button>
+                        )
+                        : (
+                            <>
+                                <button className={isLoading ? 'yellow' : 'green'}>Update</button>
+                                &nbsp;
+                                <button className='red'>Delete</button>
+                            </>
+                        )
+                }
+
 
             </div>
 

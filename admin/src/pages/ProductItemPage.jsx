@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import ProductForm from '../components/ProductForm';
 
 const ProductItemPage = ({ products }) => {
 
@@ -7,37 +7,39 @@ const ProductItemPage = ({ products }) => {
   const id = +useParams().id;
   console.log(id)
 
-  const [product, setProduct] = useState({});
+  const product = products.find((product) => product.id === id);
 
-  useEffect(() => {
-    const p = products.find((product) => product.id === id)
-
-    setProduct(p)
-  }, [])
 
   return (
     <main>
-      
+
       <h1>Product {id}</h1>
 
       {
         product
-          ? (product.title)
+          ? (
+            <>
+              {/* <h2>{product.title}</h2> */}
+              <h3>Created at: {new Date(product?.createdAt).toLocaleDateString()}</h3>
+
+              <ProductForm product={product } />
+
+            </>
+
+          )
           : ('Product Not Found')
       }
 
 
-      {/* Product: {id}
-      <h3>{product.title}</h3>
-      <h3>${product.price}</h3> */}
+      <br />
 
-      {/* <Link to='/products'>
+      <Link to='/products'>
         <button>Products</button>
-      </Link> */}
+      </Link>
       &nbsp;
-      {/* <Link to='/admin'>
+      <Link to='/admin'>
         <button>Home</button>
-      </Link> */}
+      </Link>
     </main>
   )
 }
