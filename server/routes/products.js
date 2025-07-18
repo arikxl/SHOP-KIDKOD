@@ -32,7 +32,6 @@ router.get('/', async (req, res) => {
 
 
 // CREATE NEW PRODUCT
-
 router.post('/create', async (req, res) => {
 
     try {
@@ -48,8 +47,8 @@ router.post('/create', async (req, res) => {
 
         const [product] = await db.execute(sql, values);
         res.status(201).json({ message: 'Added New Product!', product });
-        
-        
+
+
 
     } catch (error) {
         console.log(error, "Error Insert new product!");
@@ -58,6 +57,53 @@ router.post('/create', async (req, res) => {
 
 })
 
+
+// DELETE PRODUCT
+router.delete('/product/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+
+        const sql = 'DELETE FROM products WHERE id = ?';
+        const [result] = await db.execute(sql, [id]);
+
+        if (result.affectedRows === 0) return res.status(404).json({ message: 'Product Not Found in DATABASE!!' })
+
+        res.status(200).json({ message: 'Product Deleted!!!', result })
+    } catch (error) {
+        console.log(error, "Error Delete Product!!!");
+        res.status(500).json({ error: error.message });
+    }
+
+})
+
+
+
+// UPDATE PRODUCT
+router.put('/update/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        if (!id || !req.body.title|| !req.body.brand|| !req.body.category|| !req.body.type|| !req.body.img1
+            || !req.body.price || !req.body.stock || !req.body.description) {
+            res.status(400).json({ error: 'MISSING PRODUCT DETAILS!!!!' });
+            }
+
+        const sql = `UPDATE products
+        SET title = ?, brand = ?, category = ?, type = ?, img1 = ?, img2 = ?, price = ?, stock = ?, description = ?, isOnSale = ?
+        WHERE id = ?`;
+
+        const values = [
+            req.body.title, req.body.brand, req.body.category, req.body.type, req.body.img1,
+            req.body.img2, req.body.price, req.body.stock, req.body.description, req.body.isOnSale, id
+        ];
+
+    } catch (error) {
+        console.log(error, "Error Updating Product!!!");
+        res.status(500).json({ error: error.message });
+    }
+
+})
 
 
 

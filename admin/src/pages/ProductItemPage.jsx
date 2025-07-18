@@ -5,8 +5,6 @@ const ProductItemPage = ({ products }) => {
 
 
   const id = +useParams().id;
-  console.log(id)
-
   const product = products.find((product) => product.id === id);
 
 

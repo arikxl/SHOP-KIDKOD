@@ -47,6 +47,24 @@ const ProductForm = ({ product }) => {
     }
 
 
+    const deleteProduct = async (id) => {
+        // console.log(id)
+
+        if (window.confirm('Are you sure you want to delete ' + product.title + '?')) {
+            setIsLoading(true);
+
+            try {
+                await axios.delete('http://localhost:5000/products/product/' + id);
+                setIsLoading(false);
+                navigate('/products')
+            } catch (error) {
+                console.log(error)
+                setIsLoading(false);
+            }
+        }
+    }
+
+
 
 
 
@@ -152,7 +170,8 @@ const ProductForm = ({ product }) => {
                             <>
                                 <button className={isLoading ? 'yellow' : 'green'}>Update</button>
                                 &nbsp;
-                                <button className='red'>Delete</button>
+                                <button onClick={(e) => deleteProduct(product.id)}
+                                    className='red'>Delete</button>
                             </>
                         )
                 }
